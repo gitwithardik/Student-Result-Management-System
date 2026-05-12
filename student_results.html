@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+  <div class="row-between">
+    <h3>My Result</h3>
+    <a class="btn" href="{{ url_for('student_results_pdf') }}">Download PDF</a>
+  </div>
+</section>
+
+<section class="cards">
+  <article class="card metric-card"><p>Total</p><h2>{{ result.total_obtained }}</h2></article>
+  <article class="card metric-card"><p>Percentage</p><h2>{{ result.percentage }}%</h2></article>
+  <article class="card metric-card"><p>Grade / Status</p><h2>{{ result.grade }} - {{ result.status }}</h2></article>
+</section>
+
+<section class="card">
+  <h3>Student Details</h3>
+  <p><strong>Roll Number:</strong> {{ result.roll_number }}</p>
+  <p><strong>Name:</strong> {{ result.full_name }}</p>
+  <p><strong>Class:</strong> {{ result.class_name }}</p>
+  <p><strong>Subjects Attempted:</strong> {{ result.subjects_attempted }}</p>
+  <p><strong>Total Marks:</strong> {{ result.total_obtained }} / {{ result.total_max }}</p>
+</section>
+
+<section class="card">
+  <h3>Subject-wise Marks</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Code</th><th>Subject</th><th>Obtained</th><th>Max</th></tr>
+      </thead>
+      <tbody>
+      {% for item in subject_wise %}
+        <tr>
+          <td>{{ item.subject_code }}</td>
+          <td>{{ item.subject_name }}</td>
+          <td>{{ item.marks_obtained }}</td>
+          <td>{{ item.max_marks }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="4">No subjects available.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+  <h3>Add Student</h3>
+  <form method="post" class="form-grid">
+    <input name="roll_number" placeholder="Roll Number" required />
+    <input name="full_name" placeholder="Full Name" required />
+    <input name="class_name" placeholder="Class" required />
+    <input name="student_password" placeholder="Student Password (default: roll number)" />
+    <button type="submit">Add Student</button>
+  </form>
+</section>
+<section class="card">
+  <div class="row-between">
+    <h3>Student List</h3>
+    <input class="table-search" data-table-target="students-table" type="search" placeholder="Search students..." />
+  </div>
+  <div class="table-wrap">
+  <table id="students-table">
+    <thead><tr><th>Roll</th><th>Name</th><th>Class</th><th>Password</th><th>Action</th></tr></thead>
+    <tbody>
+      {% for s in students %}
+      <tr>
+        <td>{{ s.roll_number }}</td><td>{{ s.full_name }}</td><td>{{ s.class_name }}</td><td>{{ s.student_password }}</td>
+        <td><form method="post" action="{{ url_for('delete_student', student_id=s.id) }}"><button class="danger" type="submit">Delete</button></form></td>
+      </tr>
+      {% else %}<tr><td colspan="5">No students added.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+{% endblock %}

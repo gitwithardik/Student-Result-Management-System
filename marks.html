@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+  <h3>Enter/Update Marks</h3>
+  <form method="post" class="form-grid">
+    <select name="student_id" required><option value="">Student</option>{% for s in students %}<option value="{{ s.id }}">{{ s.roll_number }} - {{ s.full_name }}</option>{% endfor %}</select>
+    <select name="subject_id" required><option value="">Subject</option>{% for sub in subjects %}<option value="{{ sub.id }}">{{ sub.subject_code }} - {{ sub.subject_name }} ({{ sub.max_marks }})</option>{% endfor %}</select>
+    <input name="marks_obtained" type="number" step="0.01" min="0" placeholder="Marks" required />
+    <button type="submit">Save</button>
+  </form>
+</section>
+<section class="card">
+  <div class="row-between">
+    <h3>Marks List</h3>
+    <input class="table-search" data-table-target="marks-table" type="search" placeholder="Search marks..." />
+  </div>
+  <div class="table-wrap">
+  <table id="marks-table">
+    <thead><tr><th>Roll</th><th>Name</th><th>Subject</th><th>Obtained</th><th>Max</th><th>Action</th></tr></thead>
+    <tbody>
+      {% for m in marks %}
+      <tr>
+        <td>{{ m.roll_number }}</td><td>{{ m.full_name }}</td><td>{{ m.subject_name }}</td><td>{{ m.marks_obtained }}</td><td>{{ m.max_marks }}</td>
+        <td><form method="post" action="{{ url_for('delete_mark', mark_id=m.id) }}"><button class="danger" type="submit">Delete</button></form></td>
+      </tr>
+      {% else %}<tr><td colspan="6">No marks entered.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+{% endblock %}

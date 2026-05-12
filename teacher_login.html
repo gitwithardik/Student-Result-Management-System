@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card login-card">
+  <h3>Teacher Login</h3>
+  <p class="hint">Use teacher credentials to manage students, marks, and reports.</p>
+  <form method="post" class="form-grid">
+    <input type="text" name="username" placeholder="Teacher Username" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <button type="submit">Login as Teacher</button>
+  </form>
+  <p class="hint">Default: teacher / teacher123</p>
+  <hr />
+  <p class="hint">Are you a student? <a href="{{ url_for('student_login') }}">Student login here</a>.</p>
+</section>
+{% endblock %}

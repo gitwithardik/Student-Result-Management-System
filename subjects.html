@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+  <h3>Add Subject</h3>
+  <form method="post" class="form-grid">
+    <input name="subject_code" placeholder="Subject Code" required />
+    <input name="subject_name" placeholder="Subject Name" required />
+    <input name="max_marks" type="number" min="1" placeholder="Max Marks" required />
+    <button type="submit">Add Subject</button>
+  </form>
+</section>
+<section class="card">
+  <div class="row-between">
+    <h3>Subject List</h3>
+    <input class="table-search" data-table-target="subjects-table" type="search" placeholder="Search subjects..." />
+  </div>
+  <div class="table-wrap">
+  <table id="subjects-table">
+    <thead><tr><th>Code</th><th>Name</th><th>Max</th><th>Action</th></tr></thead>
+    <tbody>
+      {% for sub in subjects %}
+      <tr>
+        <td>{{ sub.subject_code }}</td><td>{{ sub.subject_name }}</td><td>{{ sub.max_marks }}</td>
+        <td><form method="post" action="{{ url_for('delete_subject', subject_id=sub.id) }}"><button class="danger" type="submit">Delete</button></form></td>
+      </tr>
+      {% else %}<tr><td colspan="4">No subjects added.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+{% endblock %}

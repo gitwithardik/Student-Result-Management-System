@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Result Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div>
+        <h1>Student Result Management System</h1>
+        <p class="subtitle">Track students, marks, grades, and reports</p>
+      </div>
+    <div class="topbar-actions">
+    <button id="themeToggle" class="ghost-btn" type="button" aria-label="Toggle theme">Toggle Theme</button>
+    {% if session.get('user_role') == 'teacher' %}
+    <nav class="nav-links">
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('students_page') }}">Students</a>
+      <a href="{{ url_for('subjects_page') }}">Subjects</a>
+      <a href="{{ url_for('marks_page') }}">Marks</a>
+      <a href="{{ url_for('results_page') }}">Results</a>
+      <a class="logout-link" href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    {% elif session.get('user_role') == 'student' %}
+    <nav class="nav-links">
+      <a href="{{ url_for('student_results') }}">My Results</a>
+      <a class="logout-link" href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    {% endif %}
+    </div>
+    </div>
+  </header>
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

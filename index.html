@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="cards">
+  <article class="card metric-card"><p>Total Students</p><h2>{{ students }}</h2></article>
+  <article class="card metric-card"><p>Total Subjects</p><h2>{{ subjects }}</h2></article>
+  <article class="card metric-card"><p>Marks Entries</p><h2>{{ mark_entries }}</h2></article>
+</section>
+<section class="card">
+  <h3>Quick Tips</h3>
+  <p class="hint">Start by adding subjects and students, then enter marks. Use the Results page to download a polished PDF report.</p>
+</section>
+{% endblock %}
